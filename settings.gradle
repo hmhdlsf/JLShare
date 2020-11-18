@@ -1,0 +1,3 @@
+rootProject.name='share_login'
+include ':app'
+include ':lib'

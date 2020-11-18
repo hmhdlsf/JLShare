@@ -1,0 +1,81 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.julive.lib">
+
+    <!-- 访问网络的权限，不用多解释，qq需要-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 外部存储的权限，分享的图片会先存放在本地，把图片地址交给第三方，第三方最后会进行读取 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application android:allowBackup="true">
+
+        <!-- Only fullscreen opaque activities can request orientation 8.0不能加orientation属性-->
+        <!-- 不要使用：android:screenOrientation="portrait" -->
+
+        <activity
+            android:name=".platforms.wx.EventHandlerActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:launchMode="singleInstance"
+
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <!-- ============================= 微信 ============================= -->
+
+        <activity-alias
+            android:name="${applicationId}.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:targetActivity=".platforms.wx.EventHandlerActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- ============================= qq ============================= -->
+
+        <!-- 腾讯sdk中增加的activity对象，用来在控制台打印日志 -->
+        <!-- http://wiki.open.qq.com/wiki/%E5%88%9B%E5%BB%BA%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E7%A8%8B -->
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            />
+
+        <!-- 腾讯的认证activity -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- 这里需要换成:tencent+你的AppId -->
+                <data android:scheme="${qq_app_id}" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="WX_APP_ID"
+            android:value="${wx_app_id}"/>
+
+        <meta-data
+            android:name="WX_APP_SECRET"
+            android:value="${wx_app_secret}"/>
+
+        <meta-data
+            android:name="QQ_APP_ID"
+            android:value="${qq_app_id}"/>
+
+        <meta-data
+            android:name="QQ_SCOPE"
+            android:value="${qq_scope}"/>
+
+    </application>
+
+</manifest>
