@@ -57,7 +57,7 @@ object QQHelper {
     private fun getTextObj(shareContent: ShareContent): Intent? {
         return Intent()
             .putExtra(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT)
-            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.webPageUrl)
+            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.targetUrl)
     }
 
     /**
@@ -88,7 +88,7 @@ object QQHelper {
             .putExtra(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_AUDIO)
             .putExtra(QQShare.SHARE_TO_QQ_AUDIO_URL, shareContent.musicUrl)
             .putExtra(QQShare.SHARE_TO_QQ_IMAGE_URL, getThumbImageUri(shareContent))
-            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.webPageUrl)
+            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.targetUrl)
     }
 
     /**
@@ -108,7 +108,7 @@ object QQHelper {
         return Intent()
             .putExtra(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT)
             .putExtra(QQShare.SHARE_TO_QQ_IMAGE_URL, getThumbImageUri(shareContent))
-            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.webPageUrl)
+            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.targetUrl)
             .putExtra(QQShare.SHARE_TO_QQ_ARK_INFO, shareContent.jsonStr)
     }
 
@@ -119,7 +119,7 @@ object QQHelper {
         return Intent()
             .putExtra(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_MINI_PROGRAM)
             .putExtra(QQShare.SHARE_TO_QQ_IMAGE_URL, getThumbImageUri(shareContent))
-            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.webPageUrl)
+            .putExtra(QQShare.SHARE_TO_QQ_TARGET_URL, shareContent.targetUrl)
             .putExtra(QQShare.SHARE_TO_QQ_MINI_PROGRAM_APPID, shareContent.userName)
             .putExtra(QQShare.SHARE_TO_QQ_MINI_PROGRAM_PATH, shareContent.path)
             .putExtra(QQShare.SHARE_TO_QQ_MINI_PROGRAM_TYPE, shareContent.miniProgramType)
@@ -180,7 +180,7 @@ object QQHelper {
             .putExtra(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT)
             .putExtra(QzoneShare.SHARE_TO_QQ_TITLE, shareContent.title)
             .putExtra(QzoneShare.SHARE_TO_QQ_SUMMARY, shareContent.desc)
-            .putExtra(QzoneShare.SHARE_TO_QQ_TARGET_URL, shareContent.webPageUrl)
+            .putExtra(QzoneShare.SHARE_TO_QQ_TARGET_URL, shareContent.targetUrl)
             .putExtra(QzoneShare.SHARE_TO_QQ_IMAGE_URL, list)
             .getExtras()
     }

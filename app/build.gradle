@@ -22,11 +22,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             manifestPlaceholders = [
-                    "wx_app_id" : "xx123",
-                    "wx_app_secret" : "",
+                    "wx_app_id"    : "",
+                    "wx_app_secret": "",
 
-                    "qq_app_id" : "",
-                    "qq_scope" : "",
+                    "qq_app_id"    : "",
+                    "qq_scope"     : "",
             ]
         }
 
@@ -35,11 +35,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             manifestPlaceholders = [
-                    "wx_app_id" : "xx567",
-                    "wx_app_secret" : "",
+                    "wx_app_id"    : "",
+                    "wx_app_secret": "",
 
-                    "qq_app_id" : "",
-                    "qq_scope" : "",
+                    "qq_app_id"    : "",
+                    "qq_scope"     : "",
             ]
         }
     }

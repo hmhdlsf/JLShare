@@ -68,6 +68,8 @@ class ShareContent {
     /**
      * QQ 独有的字段
      */
+    var targetUrl: String? = ""
+
     var appName: String? = ""
 
     var extInt: Int? = 0
