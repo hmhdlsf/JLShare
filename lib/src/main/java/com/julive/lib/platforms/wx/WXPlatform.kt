@@ -42,7 +42,7 @@ class WXPlatform : IPlatform {
     private var wxEventHandler: IWXAPIEventHandler? = null
 
     override fun getSupportTypes(): MutableList<String> {
-        return mutableListOf(FRIEND, TIMELINE, FAVORITE)
+        return mutableListOf(LOGIN, FRIEND, TIMELINE, FAVORITE)
     }
 
     override fun isInstalled(context: Context): Boolean {
