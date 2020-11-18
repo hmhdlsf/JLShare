@@ -30,10 +30,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'com.google.android.material:material:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    // material组件库
-    implementation 'com.google.android.material:material:1.0.0'
+    // 微信依赖
+    compileOnly 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.4.3'
+    // QQ依赖
+    compileOnly files('libs/open_sdk_r0bd7cf8_lite.jar')
 }

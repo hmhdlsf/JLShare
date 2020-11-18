@@ -45,7 +45,7 @@ interface IPlatform {
      * 调起登录
      */
     fun doLogin(
-        activity: Activity,
+        activity: Activity?,
         listener: LoginListener
     ) {}
 

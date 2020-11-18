@@ -50,20 +50,21 @@ class WXPlatform : IPlatform {
     }
 
     override fun doLogin(
-        activity: Activity,
+        activity: Activity?,
         listener: LoginListener
     ) {
         val request = SendAuth.Req()
         request.scope = "snsapi_userinfo" // 期望得到用户信息
 
-
-        sendRequest(activity, request, object : IWXAPIEventHandler {
-            override fun onReq(baseReq: BaseReq) {}
-            override fun onResp(baseResp: BaseResp) {
-                WXLoginHelper.parseLoginResp(activity, baseResp, listener)
-                activity.finish()
-            }
-        })
+        activity?.let {
+            sendRequest(it, request, object : IWXAPIEventHandler {
+                override fun onReq(baseReq: BaseReq) {}
+                override fun onResp(baseResp: BaseResp) {
+                    WXLoginHelper.parseLoginResp(it, baseResp, listener)
+                    it.finish()
+                }
+            })
+        }
     }
 
     override fun doShare(

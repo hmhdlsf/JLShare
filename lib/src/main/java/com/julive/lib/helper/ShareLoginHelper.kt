@@ -96,7 +96,7 @@ object ShareLoginHelper {
                     PackageManager.GET_META_DATA
                 )
             value = appInfo.metaData.getString(key)
-            if (value.isNullOrEmpty()){
+            if (value.isNullOrEmpty()) {
                 value = appInfo.metaData.getInt(key).toString()
             }
         } catch (e: PackageManager.NameNotFoundException) {
@@ -196,7 +196,7 @@ object ShareLoginHelper {
         onCreateListener = object : OnCreateListener {
             override fun onCreate(eventActivity: EventHandlerActivity?) {
                 if (isLoginAction) {
-//                finalCurPlatform.doLogin(eventActivity, finalLoginListener)
+                    finalCurPlatform.doLogin(eventActivity, finalLoginListener)
                 } else {
                     assert(content != null)
                     finalCurPlatform.doShare(
