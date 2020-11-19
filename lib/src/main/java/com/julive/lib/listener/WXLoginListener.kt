@@ -1,9 +1,8 @@
-package com.julive.sharelogin
+package com.julive.lib.listener
 
 import android.content.Context
 import android.widget.Toast
 import com.julive.lib.entity.OAuthUserInfo
-import com.julive.lib.listener.LoginListener
 
 open class WXLoginListener(private val context: Context) : LoginListener() {
     override fun onReceiveToken(
