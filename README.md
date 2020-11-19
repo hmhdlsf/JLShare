@@ -28,7 +28,7 @@ manifestPlaceholders = [
         "wx_app_secret": "",
 
         "qq_app_id"    : "",
-         "qq_scope"    : "",
+        "qq_scope"     : "",
 ]
 ```
 3. 初始化
