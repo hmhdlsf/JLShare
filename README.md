@@ -135,7 +135,7 @@ oks.setShareCallback(new MyShareListener(context) {
     }
 });
 ```
-9. 微信登录及回调
+9. 调起微信登录及回调
 ```
 ShareLoginHelper.doLogin(this, WXPlatform.LOGIN, object : WXLoginListener(this) {
     override fun onReceiveToken(
