@@ -9,8 +9,6 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -35,7 +33,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // 微信依赖
-    compileOnly 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.4.3'
+    compileOnly 'com.github.hmhdlsf:JLShareWX:v1.0.5'
     // QQ依赖
-    compileOnly files('libs/open_sdk_r0bd7cf8_lite.jar')
+    compileOnly 'com.github.hmhdlsf:JLShareQQ:v1.0.2'
 }

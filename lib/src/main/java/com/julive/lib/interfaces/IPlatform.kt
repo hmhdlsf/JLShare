@@ -53,7 +53,7 @@ interface IPlatform {
      * 调起分享
      */
     fun doShare(
-        activity: Activity,
+        activity: Activity?,
         shareType: String?,
         shareContent: ShareContent?,
         listener: ShareListener

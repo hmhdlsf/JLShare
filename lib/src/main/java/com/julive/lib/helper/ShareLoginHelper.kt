@@ -194,17 +194,18 @@ object ShareLoginHelper {
         val finalCurPlatform: IPlatform = curPlatform
 
         onCreateListener = object : OnCreateListener {
-            override fun onCreate(eventActivity: EventHandlerActivity?) {
+            override fun onCreate(activity: EventHandlerActivity?) {
                 if (isLoginAction) {
-                    finalCurPlatform.doLogin(eventActivity, finalLoginListener)
+                    finalCurPlatform.doLogin(activity, finalLoginListener)
                 } else {
-                    assert(content != null)
-                    finalCurPlatform.doShare(
-                        eventActivity as Activity,
-                        type,
-                        content,
-                        finalShareListener
-                    )
+                    content?.apply {
+                        finalCurPlatform.doShare(
+                            activity,
+                            type,
+                            content,
+                            finalShareListener
+                        )
+                    }
                 }
             }
         }
