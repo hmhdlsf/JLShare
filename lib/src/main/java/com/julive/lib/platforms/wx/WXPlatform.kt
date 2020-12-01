@@ -68,24 +68,23 @@ class WXPlatform : IPlatform {
     }
 
     override fun doShare(
-        activity: Activity,
+        activity: Activity?,
         shareType: String?,
         shareContent: ShareContent?,
         listener: ShareListener
     ) {
-        shareContent?.let { content ->
-            shareType?.let { type ->
-                val request: SendMessageToWX.Req = WXShareHelper.createRequest(content, type)
-
-                sendRequest(activity, request, object : IWXAPIEventHandler {
-                    override fun onReq(baseReq: BaseReq) {}
-                    override fun onResp(baseResp: BaseResp) {
-                        WXShareHelper.parseShareResp(baseResp, listener)
-                        activity.finish()
-                    }
-                })
-            }
+        if (activity == null || shareContent == null || shareType == null) {
+            return
         }
+        val request: SendMessageToWX.Req = WXShareHelper.createRequest(shareContent, shareType)
+
+        sendRequest(activity, request, object : IWXAPIEventHandler {
+            override fun onReq(baseReq: BaseReq) {}
+            override fun onResp(baseResp: BaseResp) {
+                WXShareHelper.parseShareResp(baseResp, listener)
+                activity.finish()
+            }
+        })
     }
 
     private fun sendRequest(

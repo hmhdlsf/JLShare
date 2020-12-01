@@ -18,44 +18,41 @@ class EventHandlerActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 为了防止这个activity关不掉，这里给用户一个点击关闭的功能
-        findViewById<View>(R.id.content).setOnClickListener { v: View? -> finish() }
-        if (savedInstanceState != null) {
-            SlUtils.printLog("EventHandlerActivity:onCreate(2) intent:" + intent.extras)
+        findViewById<View>(R.id.content).setOnClickListener { finish() }
+        savedInstanceState?.apply {
+            SlUtils.printLog("EventHandlerActivity:onCreate(2) intent:${intent.extras}")
             handleResp(intent)
-        } else {
-            ShareLoginHelper.onActivityCreate(this)
+            return
         }
+        ShareLoginHelper.onActivityCreate(this)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        SlUtils.printLog("EventHandlerActivity:onNewIntent() intent:" + intent.extras)
+        SlUtils.printLog("EventHandlerActivity:onNewIntent() intent:${intent.extras}")
         handleResp(intent)
     }
 
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
-        intent: Intent
+        intent: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, intent)
-        if (intent != null) {
-            intent.putExtra(KEY_REQUEST_CODE, requestCode)
-            intent.putExtra(KEY_RESULT_CODE, resultCode)
-            SlUtils.printLog("EventHandlerActivity:onActivityResult() intent:" + intent.extras)
-        } else {
+        intent?.apply {
+            putExtra(KEY_REQUEST_CODE, requestCode)
+            putExtra(KEY_RESULT_CODE, resultCode)
+            handleResp(intent)
+            SlUtils.printLog("EventHandlerActivity:onActivityResult() intent:$extras")
+        } ?: also {
             SlUtils.printErr("EventHandlerActivity:onActivityResult() intent is null")
         }
-        handleResp(intent)
         finish()
     }
 
     private fun handleResp(data: Intent) {
-        if (ShareLoginHelper.getCurPlatform() != null) {
-            ShareLoginHelper.getCurPlatform()?.onResponse(this, data)
-        } else {
-            SlUtils.printErr("ShareLoginLib.curPlatform is null")
-        }
+        ShareLoginHelper.getCurPlatform()?.onResponse(this, data)
+            ?: also { SlUtils.printErr("ShareLoginLib.curPlatform is null") }
     }
 
     override fun onResume() {

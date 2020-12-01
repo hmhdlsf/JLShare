@@ -2,7 +2,7 @@ package com.julive.lib.content
 
 class ShareContent {
     // 分享的方式
-    var type: Int? = 0
+    var type: Int = 0
 
     /**
      * 公共参数

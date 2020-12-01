@@ -49,7 +49,7 @@ class QQPlatform : IPlatform {
     }
 
     override fun doShare(
-        activity: Activity,
+        activity: Activity?,
         shareType: String?,
         shareContent: ShareContent?,
         listener: ShareListener
@@ -59,32 +59,30 @@ class QQPlatform : IPlatform {
                 listener.onSuccess()
             }
         }
+        if (activity == null || shareContent == null || shareType == null) {
+            return
+        }
+        val ten = getTencent(activity)
 
-        val tencent = getTencent(activity)
+        when (shareType) {
+            FRIEND -> {
+                ten.shareToQQ(activity, QQHelper.qqFriendBundle(shareContent), mUIListener)
+            }
 
-        shareContent?.let {
-            tencent?.let { ten ->
-                when (shareType) {
-                    FRIEND -> {
-                        ten.shareToQQ(activity, QQHelper.qqFriendBundle(it), mUIListener)
-                    }
-
-                    else -> {
-                        // 因为空间不支持分享单个文字和图片，在这里对于单个图片做了额外的处理，让其走发布说说的api
-                        if (it.type === ShareContentType.TEXT || it.type === ShareContentType.IMG) {
-                            ten.publishToQzone(
-                                activity,
-                                QQHelper.publishToQzoneBundle(shareContent),
-                                mUIListener
-                            )
-                        } else {
-                            ten.shareToQzone(
-                                activity,
-                                QQHelper.zoneBundle(shareContent),
-                                mUIListener
-                            )
-                        }
-                    }
+            else -> {
+                // 因为空间不支持分享单个文字和图片，在这里对于单个图片做了额外的处理，让其走发布说说的api
+                if (shareContent.type == ShareContentType.TEXT || shareContent.type == ShareContentType.IMG) {
+                    ten.publishToQzone(
+                        activity,
+                        QQHelper.publishToQzoneBundle(shareContent),
+                        mUIListener
+                    )
+                } else {
+                    ten.shareToQzone(
+                        activity,
+                        QQHelper.zoneBundle(shareContent),
+                        mUIListener
+                    )
                 }
             }
         }
@@ -93,7 +91,7 @@ class QQPlatform : IPlatform {
     /**
      * 传入应用程序的全局context，可通过activity的getApplicationContext方法获取
      */
-    fun getTencent(context: Context): Tencent? {
+    fun getTencent(context: Context): Tencent {
         return Tencent.createInstance(
             ShareLoginHelper.getValue(context, QQ_APP_ID),
             context.applicationContext
