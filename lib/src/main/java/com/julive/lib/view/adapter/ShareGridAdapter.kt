@@ -18,7 +18,7 @@ class ShareGridAdapter(
 ) : AbsBaseGvAdapter<ShareGridEntity>(context, list) {
 
     override fun getContentLayoutName(): Int {
-        return R.layout.item_bottom_share
+        return R.layout.sl_item_bottom_share
     }
 
     override fun getViewHolder(context: Context?, view: View?): BaseViewHolder<ShareGridEntity> {

@@ -11,7 +11,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        tools:src="@drawable/wx_friends" />
+        tools:src="@drawable/sl_wx_friends" />
 
     <TextView
         android:id="@+id/tv_name"

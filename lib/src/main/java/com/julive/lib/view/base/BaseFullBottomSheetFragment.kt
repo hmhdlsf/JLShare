@@ -22,7 +22,7 @@ open class BaseFullBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return if (context == null) {
             super.onCreateDialog(savedInstanceState)
-        } else BottomSheetDialog(context!!, R.style.TransparentBottomSheetStyle)
+        } else BottomSheetDialog(context!!, R.style.SLTransparentBottomSheetStyle)
     }
 
     override fun onStart() {
