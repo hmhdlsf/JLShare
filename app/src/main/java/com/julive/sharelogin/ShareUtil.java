@@ -97,7 +97,7 @@ class ShareUtil {
         });
 
         // 自定义平台
-        Bitmap enableLogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.sl_short_msg);
+        Bitmap enableLogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.jlsh_short_msg);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

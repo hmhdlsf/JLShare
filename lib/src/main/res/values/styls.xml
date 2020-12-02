@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SLTransparentBottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/SLSheetStyle</item>
+    <style name="JLSh_TransparentBottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/JLSh_SheetStyle</item>
     </style>
 
-    <style name="SLSheetStyle" parent="android:Widget">
+    <style name="JLSh_SheetStyle" parent="android:Widget">
         <item name="android:background">@android:color/transparent</item>
         <item name="behavior_peekHeight">auto</item>
         <item name="behavior_hideable">true</item>

@@ -40,12 +40,12 @@ class BottomShareFragment(private val map: HashMap<String, Any>) : BaseFullBotto
 
     private val platformLabel = arrayOf("微信好友", "微信朋友圈", "微信收藏", "QQ", "QQ空间", "短信")
     private val platformImg = arrayOf(
-        R.drawable.sl_wx_friends,
-        R.drawable.sl_wx_moment,
-        R.drawable.sl_wx_favorite,
-        R.drawable.sl_qq_friends,
-        R.drawable.sl_qq_zone,
-        R.drawable.sl_short_msg
+        R.drawable.jlsh_wx_friends,
+        R.drawable.jlsh_wx_moment,
+        R.drawable.jlsh_wx_favorite,
+        R.drawable.jlsh_qq_friends,
+        R.drawable.jlsh_qq_zone,
+        R.drawable.jlsh_short_msg
     )
     private val platformName = arrayOf(
         Constants.WX_FRIENDS,
@@ -82,7 +82,7 @@ class BottomShareFragment(private val map: HashMap<String, Any>) : BaseFullBotto
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mRootView = inflater.inflate(R.layout.sl_fragment_bottom_share, container, false)
+        mRootView = inflater.inflate(R.layout.jlsh_fragment_bottom_share, container, false)
         initView()
         return mRootView
     }
