@@ -1,5 +1,6 @@
 package com.julive.lib.platforms.qq
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import com.julive.lib.content.ShareContent
@@ -20,8 +21,6 @@ class QQPlatform : IPlatform {
     companion object {
         const val QQ_PACKAGE_NAME = "com.tencent.mobileqq"
         const val QQ_APP_ID = "qq_app_id"
-        const val QQ_SCOPE = "qq_scope"
-        const val QQ_APP_SECRET = "qq_app_secret"
 
         // QQ 好友
         const val FRIEND = "QQ_FRIEND"
@@ -36,6 +35,7 @@ class QQPlatform : IPlatform {
         return mutableListOf(FRIEND, ZONE)
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun isInstalled(context: Context): Boolean {
         val pm = context.applicationContext.packageManager ?: return false
         val packages = pm.getInstalledPackages(0)

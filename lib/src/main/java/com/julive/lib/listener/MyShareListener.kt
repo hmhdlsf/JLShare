@@ -2,7 +2,6 @@ package com.julive.lib.listener
 
 import android.content.Context
 import android.widget.Toast
-import com.julive.lib.listener.ShareListener
 
 open class MyShareListener(private val context: Context) : ShareListener() {
     override fun onSuccess() {
@@ -17,9 +16,9 @@ open class MyShareListener(private val context: Context) : ShareListener() {
         Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onError(msg: String) {
-        super.onError(msg)
-        val result = "分享失败，出错信息：$msg"
+    override fun onError(errorMsg: String) {
+        super.onError(errorMsg)
+        val result = "分享失败，出错信息：$errorMsg"
         Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
     }
 

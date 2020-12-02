@@ -25,9 +25,9 @@ class OneKeyShare {
         const val SHARE_LISTENER = "share.listener"
     }
 
-    var params: HashMap<String, Any> = HashMap()
+    private var params: HashMap<String, Any> = HashMap()
 
-    constructor() {
+    init {
         params[CUSTOM_PLATFORM] = ArrayList<CustomPlatform>()
         params[HIDDEN_PLATFORMS] = ArrayList<String>()
     }
@@ -50,8 +50,7 @@ class OneKeyShare {
      * 隐藏的平台
      */
     fun addHiddenPlatform(platform: String) {
-        var hiddenPlatform = getHiddenPlatform(params)
-        hiddenPlatform.add(platform)
+        getHiddenPlatform(params).add(platform)
     }
 
     /**

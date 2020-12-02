@@ -11,11 +11,6 @@ import com.julive.lib.listener.LoginListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-/**
- * @author Kale
- * @date 2018/9/14
- */
 public class UserInfoHelper {
 
     /**

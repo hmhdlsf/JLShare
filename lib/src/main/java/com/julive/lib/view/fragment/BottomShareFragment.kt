@@ -105,9 +105,9 @@ class BottomShareFragment(private val map: HashMap<String, Any>) : BaseFullBotto
         mGridView = mRootView.findViewById(R.id.gv_share)
         mAdapter = ShareGridAdapter(context, mDataList)
         mGridView.adapter = mAdapter
-        mGridView.setOnItemClickListener { parent, view, position, id ->
+        mGridView.setOnItemClickListener { _, view, position, _ ->
             val platformName = mDataList[position].platformName
-            var platformType: String = ""
+            var platformType = ""
             mPlatformClickListener?.onPlatformClick(Platform(platformName), mShareContent)
             when (platformName) {
                 // 微信好友

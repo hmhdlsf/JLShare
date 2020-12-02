@@ -182,7 +182,7 @@ object QQHelper {
             .putExtra(QzoneShare.SHARE_TO_QQ_SUMMARY, shareContent.desc)
             .putExtra(QzoneShare.SHARE_TO_QQ_TARGET_URL, shareContent.targetUrl)
             .putExtra(QzoneShare.SHARE_TO_QQ_IMAGE_URL, list)
-            .getExtras()
+            .extras
     }
 
     /**
@@ -201,7 +201,7 @@ object QQHelper {
             )
             .putExtra(QzoneShare.SHARE_TO_QQ_SUMMARY, shareContent.desc)
             .putExtra(QzoneShare.SHARE_TO_QQ_IMAGE_URL, list)
-            .getExtras()
+            .extras
     }
 
     /**

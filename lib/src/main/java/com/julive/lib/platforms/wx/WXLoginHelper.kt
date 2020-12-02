@@ -15,7 +15,7 @@ import org.json.JSONObject
 
 /**
  * Created by lsf on 2020/11/17 3:06 PM
- * Function :
+ * Function : 微信登录帮助类
  */
 object WXLoginHelper {
 
@@ -77,7 +77,6 @@ object WXLoginHelper {
                     val jsonObject = JSONObject(response)
                     val accessToken = jsonObject.getString("access_token")
                     val openid = jsonObject.getString("openid")
-                    val refreshToken = jsonObject.getString("refresh_token")
                     val expiresIn = jsonObject.getLong("expires_in") // access_token接口调用凭证超时时间，单位（秒）
                     listener.onReceiveToken(accessToken, openid, expiresIn, jsonObject.toString())
                     getUserInfo(context, accessToken, openid, listener)

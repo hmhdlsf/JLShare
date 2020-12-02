@@ -34,7 +34,7 @@ object WXShareHelper {
     }
 
     private fun createMediaObject(shareContent: ShareContent): IMediaObject? {
-        var mediaObject: IMediaObject?
+        val mediaObject: IMediaObject?
         when (shareContent.type) {
             ShareContentType.TEXT -> {
                 mediaObject = getTextObj(shareContent)

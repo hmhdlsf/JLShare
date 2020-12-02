@@ -47,7 +47,7 @@ class ShareGridAdapter(
 
         override fun bindData(data: ShareGridEntity, position: Int) {
             data.platformImg?.let { mPlatformImg?.setImageBitmap(it) }
-            data.platformLabel?.let { mPlatformLabel?.setText(it) }
+            mPlatformLabel?.setText(data.platformLabel)
         }
     }
 }

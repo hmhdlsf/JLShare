@@ -2,12 +2,10 @@ package com.julive.lib.helper
 
 import android.R
 import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.text.TextUtils
 import com.julive.lib.content.ShareContent
 import com.julive.lib.interfaces.IPlatform
 import com.julive.lib.listener.LoginListener
@@ -16,8 +14,6 @@ import com.julive.lib.platforms.shortMsg.ShortMsgPlatform
 import com.julive.lib.platforms.wx.EventHandlerActivity
 import com.julive.lib.platforms.wx.EventHandlerActivity.OnCreateListener
 import com.julive.lib.util.SlUtils
-import com.tencent.mm.opensdk.utils.ILog
-import com.tencent.mm.opensdk.utils.Log
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -28,61 +24,17 @@ import java.util.*
  */
 object ShareLoginHelper {
 
-    var APP_NAME: String? = ""
     var DEBUG = false
     var TEMP_PIC_DIR: String? = ""
 
-    private lateinit var mValueMap: Map<String, String>
-
-    private lateinit var mSupportPlatforms: List<Class<out IPlatform>>
+    private var mSupportPlatforms: List<Class<out IPlatform>>? = listOf()
 
     private var onCreateListener: OnCreateListener? = null
 
     private var wrPlatform: WeakReference<IPlatform>? = null
 
-    fun init(
-        application: Application,
-        curAppName: String?,
-        tempPicDir: String?,
-        debug: Boolean
-    ) {
-        APP_NAME = curAppName
-        DEBUG = debug
-
-        if (TextUtils.isEmpty(tempPicDir)) {
-            TEMP_PIC_DIR = SlUtils.generateTempPicDir(application)
-        }
-        if (DEBUG) {
-//            LogUtil.enableLog()
-            Log.setLogImpl(null) // 如果为null则会用默认的log输出
-        } else {
-//            LogUtil.disableLog()
-            Log.setLogImpl(object : ILog {
-                override fun v(s: String, s1: String) {
-                    // do nothing
-                }
-
-                override fun d(s: String, s1: String) {
-                    // do nothing
-                }
-
-                override fun i(s: String, s1: String) {
-                    // do nothing
-                }
-
-                override fun w(s: String, s1: String) {
-                    // do nothing
-                }
-
-                override fun e(s: String, s1: String) {
-                    // do nothing
-                }
-            })
-        }
-    }
-
     fun initPlatforms(
-        platforms: List<Class<out IPlatform>>
+            platforms: List<Class<out IPlatform>>
     ) {
         mSupportPlatforms = platforms
     }
@@ -91,10 +43,10 @@ object ShareLoginHelper {
         var value: String? = ""
         try {
             val appInfo: ApplicationInfo = context.packageManager
-                .getApplicationInfo(
-                    context.packageName,
-                    PackageManager.GET_META_DATA
-                )
+                    .getApplicationInfo(
+                            context.packageName,
+                            PackageManager.GET_META_DATA
+                    )
             value = appInfo.metaData.getString(key)
             if (value.isNullOrEmpty()) {
                 value = appInfo.metaData.getInt(key).toString()
@@ -106,9 +58,9 @@ object ShareLoginHelper {
     }
 
     fun doLogin(
-        activity: Activity,
-        type: String?,
-        listener: LoginListener?
+            activity: Activity,
+            type: String?,
+            listener: LoginListener?
     ) {
         if (type == null) {
             listener?.onError("type is null")
@@ -118,10 +70,10 @@ object ShareLoginHelper {
     }
 
     fun doShare(
-        activity: Activity,
-        type: String?,
-        shareContent: ShareContent?,
-        listener: ShareListener?
+            activity: Activity,
+            type: String?,
+            shareContent: ShareContent?,
+            listener: ShareListener?
     ) {
         if (type == null || shareContent == null) {
             listener?.onError("type or shareContent is null")
@@ -131,20 +83,20 @@ object ShareLoginHelper {
     }
 
     private fun doAction(
-        activity: Activity,
-        isLoginAction: Boolean,
-        type: String?,
-        content: ShareContent?,
-        loginListener: LoginListener?,
-        shareListener: ShareListener?
+            activity: Activity,
+            isLoginAction: Boolean,
+            type: String?,
+            content: ShareContent?,
+            loginListener: LoginListener?,
+            shareListener: ShareListener?
     ) {
 
         // 1. 得到目前支持的平台列表
-        var loginListener: LoginListener? = loginListener
-        var shareListener: ShareListener? = shareListener
+        var myLoginListener: LoginListener? = loginListener
+        var myShareListener: ShareListener? = shareListener
         val platforms = ArrayList<IPlatform>()
-        if (mSupportPlatforms != null) {
-            for (platformClz in mSupportPlatforms) {
+        mSupportPlatforms?.also {
+            for (platformClz in it) {
                 platforms.add(SlUtils.createPlatform(platformClz))
             }
         }
@@ -161,11 +113,11 @@ object ShareLoginHelper {
         }
 
         // 3. 初始化监听器
-        if (loginListener == null) {
-            loginListener = LoginListener()
+        if (myLoginListener == null) {
+            myLoginListener = LoginListener()
         }
-        if (shareListener == null) {
-            shareListener = ShareListener()
+        if (myShareListener == null) {
+            myShareListener = ShareListener()
         }
 
         // 4. 检测当前运行环境，看是否正常
@@ -174,23 +126,23 @@ object ShareLoginHelper {
                 throw UnsupportedOperationException("未找到支持该操作的平台，当前的操作类型为：$type")
             } else {
                 curPlatform.checkEnvironment(
-                    activity,
-                    type,
-                    content?.type
+                        activity,
+                        type,
+                        content?.type
                 )
             }
         } catch (throwable: Throwable) {
             if (isLoginAction) {
-                throwable.message?.let { loginListener.onError(it) }
+                throwable.message?.let { myLoginListener.onError(it) }
             } else {
-                throwable.message?.let { shareListener.onError(it) }
+                throwable.message?.let { myShareListener.onError(it) }
             }
             return
         }
 
         // 5. 启动辅助的activity，最终执行具体的操作
-        val finalLoginListener: LoginListener = loginListener
-        val finalShareListener: ShareListener = shareListener
+        val finalLoginListener: LoginListener = myLoginListener
+        val finalShareListener: ShareListener = myShareListener
         val finalCurPlatform: IPlatform = curPlatform
 
         onCreateListener = object : OnCreateListener {
@@ -200,10 +152,10 @@ object ShareLoginHelper {
                 } else {
                     content?.apply {
                         finalCurPlatform.doShare(
-                            activity,
-                            type,
-                            content,
-                            finalShareListener
+                                activity,
+                                type,
+                                content,
+                                finalShareListener
                         )
                     }
                 }

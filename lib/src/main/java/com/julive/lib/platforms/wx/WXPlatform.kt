@@ -103,7 +103,7 @@ class WXPlatform : IPlatform {
         getWXApi(activity).handleIntent(intent, wxEventHandler)
     }
 
-    fun getWXApi(context: Context): IWXAPI {
+    private fun getWXApi(context: Context): IWXAPI {
         return WXAPIFactory.createWXAPI(
             context.applicationContext,
             ShareLoginHelper.getValue(context, WX_APP_ID),

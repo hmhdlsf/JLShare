@@ -11,30 +11,29 @@ object HttpUtil {
     @JvmStatic
     fun sendHttpRequest(address: String?, listener: HttpCallBackListener?) {
         Thread(
-            Runnable {
-                var connection: HttpURLConnection? = null
-                try {
-                    val url = URL(address)
-                    connection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-                    connection!!.connectTimeout = 8000
-                    connection.readTimeout = 8000
-                    val `in` = connection.inputStream
-                    val reader =
-                        BufferedReader(InputStreamReader(`in`))
-                    val response = StringBuilder()
-                    var line: String?
-                    while (reader.readLine().also { line = it } != null) {
-                        response.append(line)
+                Runnable {
+                    try {
+                        val url = URL(address)
+                        val connection = url.openConnection() as HttpURLConnection
+                        connection.requestMethod = "GET"
+                        connection.connectTimeout = 8000
+                        connection.readTimeout = 8000
+                        val `in` = connection.inputStream
+                        val reader =
+                                BufferedReader(InputStreamReader(`in`))
+                        val response = StringBuilder()
+                        var line: String?
+                        while (reader.readLine().also { line = it } != null) {
+                            response.append(line)
+                        }
+                        listener?.onFinish(response.toString())
+                    } catch (e: MalformedURLException) {
+                        listener?.onError(e)
+                        e.printStackTrace()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
                     }
-                    listener?.onFinish(response.toString())
-                } catch (e: MalformedURLException) {
-                    listener?.onError(e)
-                    e.printStackTrace()
-                } catch (e: IOException) {
-                    e.printStackTrace()
                 }
-            }
         ).start()
     }
 }
